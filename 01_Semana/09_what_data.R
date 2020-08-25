@@ -1,0 +1,39 @@
+#What Data
+
+#Después de definir la pregunta de interés, lo siguiente más importante es identificar el conjunto de datos. Eso le permitirá crear las mejores predicciones posibles, que son algoritmos de aprendizaje automático. 
+
+#Entonces, un ejemplo de un predictor realmente exitoso aquí en los Estados Unidos es algo llamado FiveThirtyEight. Este fue un blog que fue diseñado para construir un modelo de pronóstico de elecciones para predecir quién ganaría las elecciones presidenciales y otras en los Estados Unidos. 
+
+#Y para hacer eso, el estadístico detrás de 538, uno de los estadísticos más famosos del mundo, Nate Silver, usó información de encuestas de una amplia variedad de encuestas y las promedió juntas para tratar de obtener una mejor predicción de quién va a ganar qué votos y qué estados para obtener el mejor voto. Una predicción de quién votaría por quién cuando llegara el momento de las elecciones. Tuvo mucho éxito al predecir las elecciones de 2008 y 2012. Este es un ejemplo del uso de datos similares para predecir similares. 
+
+#En otras palabras, tomó datos de encuestas de organizaciones como las agencias de encuestas Gallup en los Estados Unidos, y tomó todos esos datos que preguntaban a la gente directamente, ¿por quién es probable que vote en las próximas elecciones? En otras palabras, usó datos en los que a las personas se les hacía la misma pregunta que se les iba a hacer cuando entraran a las urnas y decidieran por quién iban a votar. 
+
+#Entonces, lo único que hizo, que es algo inteligente y creo que prueba sus predicciones en comparación con muchas otras personas, es que tomó esos datos y reconoció las peculiaridades reales de los datos. Entonces, se dio cuenta de que algunas encuestas en realidad estaban sesgadas de una forma u otra. 
+
+#En otras palabras, un encuestador en particular podría hacer preguntas que lleven a las personas a decir que votarían por un candidato más que por otro, incluso cuando no necesariamente votarían de esa manera cuando llegara el momento de votar de verdad. 
+
+#Entonces, lo que haría es, en realidad, ponderaría las encuestas por lo cerca que estaban de ser, una especie de, encuestas imparciales o encuestas precisas. Entonces, este es un ejemplo en el que encontrar el conjunto de datos correcto y combinarlo con una comprensión simple de lo que realmente está sucediendo científicamente puede tener el máximo beneficio posible en términos de hacer predicciones sólidas. 
+
+#Y la idea clave aquí es que, si desea predecir algo sobre X, use datos que estén tan estrechamente relacionados con X como sea posible. Hay muchos otros ejemplos de esto. 
+
+#Entonces, un ejemplo es lo que se llama Moneyball, por lo que en realidad se convirtió en una película protagonizada por Brad Pitt, pero al principio, había algunas personas que intentaban predecir qué tan bien se desempeñarían los jugadores. Y en particular, el desempeño, qué tan bien se desempeñarían para obtener victorias para un equipo de béisbol en los Estados Unidos. 
+
+#Y lo que harían es usar información sobre el rendimiento de ese jugador, así como sobre otros jugadores que fueron similares a ellos en el pasado para predecir, predecir qué tan bien se desempeñaría ese jugador. Así que de nuevo, como predecir como. Este tema se repite en el premio de Netflix, donde las personas intentaban predecir las preferencias de películas o qué películas le gustaría a la gente, y lo hicieron basándose en las preferencias de películas pasadas de esas personas. 
+
+#En otras palabras, encontraron datos de preferencias de películas y los utilizaron para predecir los datos de preferencias de películas. También fue el trasfondo del premio Heritage Health, donde el objetivo es intentar predecir qué personas serían hospitalizadas, y utilizaron datos sobre hospitalizaciones anteriores. Nuevamente usando datos sobre el mismo proceso exacto que estaban tratando de predecir en el futuro. 
+
+#Por lo tanto, cuanto más cerca pueda estar de los datos reales sobre el proceso que le interesa, más a menudo que no, mejores serán sus predicciones. No es necesariamente una regla estricta, por lo que, por ejemplo, la gente usaba las búsquedas en Google para intentar predecir los brotes de gripe, pero esto ha señalado recientemente que tiene fallas importantes, en el sentido de que, si las búsquedas de las personas cambiaban o si las propiedades de la Las formas en que esas búsquedas se relacionaron con la gripe cambiaron, sus predicciones en realidad estarían bastante lejos. 
+
+#Y algunas personas han sugerido que las tendencias de Google sobre la gripe no son necesariamente una buena forma de calcular la prevalencia de la gripe. Cuanto más flexible sea la predicción, más difícil puede ser la predicción. 
+
+#Entonces, por ejemplo, Oncotype DX es un algoritmo de predicción basado en la expresión genética, que es una medida de una molécula dentro de su cuerpo. Y, o en realidad, un subconjunto de moléculas en su cuerpo, y lo usan para predecir cuánto tiempo vivirá o qué tan bien le irá con diferentes terapias cuando tenga cáncer de mama. Y entonces, aquí, las conexiones son un poco más flojas, pero sigue siendo una conexión que definitivamente puedes hacer en tu cabeza.
+
+#Las propiedades de los datos son importantes, así que, por ejemplo, si mide a las personas que tendrían una alta prevalencia de síntomas similares a los de la gripe, podría hacerlo utilizando datos de los CDC o la gripe cerca de usted, y algoritmos como las tendencias de la gripe de Google podrían sobrestimar el número de casos de gripe si había algo que les hiciera buscar términos de búsqueda similares que no tuvieran nada que ver con la frecuencia con la que eran síntomas relacionados con la gripe. 
+
+#Este es un ejemplo en el que saber cómo los datos se conectan realmente con lo que realmente está tratando de predecir es de crucial importancia. Este es, de hecho, el error más común en el aprendizaje automático. Por lo tanto, el aprendizaje automático a menudo se considera este procedimiento de caja negra que los científicos informáticos han creado en el que simplemente empujan los datos de entrada en un extremo y el resultado es una predicción en el otro extremo. 
+
+#Este es un ejemplo de una predicción que es un poco tonta. Entonces, esto fue un, proviene de un artículo que apareció en el New England Journal of Medicine, y trazaron el consumo de chocolate en kilogramos por año per cápita en el eje X. Y en el eje Y, el número de premios Nobel por cada 10 millones de dólares, 10 millones de personas en la población. Y entonces puede ver si hay una tendencia aquí que, a medida que consume más chocolate, tiende a obtener más premios Nobel por millón de personas. 
+
+#Y entonces informaron aquí un valor R cuadrado y un valor P que sugiere que esta era una relación muy significativa, pero puede pensar en un montón de otras variables que podrían relacionar estas dos cosas entre sí. 
+
+#Entonces, por ejemplo, podría comer más chocolate si viene de Europa, y estas son en su mayoría naciones europeas aquí. Y el premio Nobel lo otorga una organización europea, por lo que puede imaginarse que más europeos también ganan premios Nobel. Esto no tiene nada que ver con la capacidad del consumo de chocolate per se para predecir si obtendrá un premio Nobel o no. Y este es un ejemplo en el que, si simplemente construyes un algoritmo de predicción ingenuamente, afirmarás que puedes predecir muy bien, pero si las características cambian, por ejemplo, si el comité del Nobel comienza a ceder más premios para, digamos, naciones asiáticas en lugar de naciones europeas, verá que este algoritmo de predicción ya no funcionará muy bien. Entonces, el punto clave para llevar a casa es que, tan a menudo como sea posible, use datos similares para predecir datos similares, y cuando esté usando datos que no estén relacionados, tenga mucho cuidado al interpretar por qué su algoritmo de predicción funciona o no.
