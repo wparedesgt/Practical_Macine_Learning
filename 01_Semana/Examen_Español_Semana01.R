@@ -10,7 +10,7 @@
 #Inferencia estadística #NO
 #Equipos de entrenamiento y prueba  #NO
 #Creando funciones.
-#Aprendizaje automático   #Respuesta
+#Aprendizaje automático   #NO
 
 #Pregunta 2
 #Supongamos que construimos un algoritmo de predicción en un conjunto de datos y es 100% exacto en ese conjunto de datos. ¿Por qué el algoritmo podría no funcionar bien si recopilamos un nuevo conjunto de datos?
@@ -38,9 +38,9 @@
 
 
 #Desviación absoluta mediana #NO
-#Especificidad   
+#Especificidad   #Respuesta
 #Error cuadrático medio #NO
-#R ^ 2 #Respuesta
+#R ^ 
 #Correlación #NO
 
 
