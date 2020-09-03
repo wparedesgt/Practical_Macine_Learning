@@ -1,0 +1,55 @@
+#Bagging
+
+#Esta conferencia trata sobre el ensacado, que es la abreviatura de agregación bootstrap. La idea básica es que cuando ajusta modelos complicados, a veces si promedia esos modelos juntos, obtiene un ajuste de modelo más suave, que le brinda un mejor equilibrio entre el sesgo potencial en su ajuste y la variación en su ajuste. Entonces, la agregación de bootstrap tiene una idea muy simple. La idea básica es tomar sus datos y volver a tomar muestras del conjunto de datos. 
+
+#Entonces, esto es similar a la idea de bootstrapping, que habría aprendido en la clase de inferencia que es parte de la especialización en ciencia de datos. Después de volver a muestrear los casos con reemplazo, vuelve a calcular su función de predicción en esos datos remuestreados. Y luego promedia las predicciones de todos estos predictores repetidos que construyó o vota por mayoría o algo así cuando está clasificando. El problema es que obtiene un sesgo similar al que obtendría al ajustar cualquiera de esos modelos individualmente, pero una variabilidad reducida porque ha promediado un montón de predictores diferentes juntos. Esto es más útil para funciones no lineales. Entonces, mostraremos un ejemplo con suavizado, pero también es muy útil para cosas como predecir con árboles. Así que volveré a los datos de ozono, por lo que está en el paquete ElemStatLearn. Y cargo el conjunto de datos de ozono. 
+
+
+ozone <- ozone[order(ozone$ozone),]
+head(ozone)
+
+
+#Luego ordeno con el propósito de mostrarte cómo funciona esto, voy a ordenar el conjunto de datos por el resultado, la variable de ozono aquí. Y luego miro el conjunto de datos y puedo ver que tiene cuatro variables, ozono, radiación, temperatura y viento. Entonces, la idea es que voy a intentar predecir la temperatura en función del ozono.
+
+
+
+#Entonces, lo primero que podemos hacer es mostrarles un ejemplo de cómo funciona esto. Entonces, la idea básica es, voy a crear una matriz aquí y tendrá 10 filas y 155 columnas. Entonces lo que voy a hacer es volver a muestrear el conjunto de datos. En diez momentos diferentes, entonces un bucle sobre diez muestras diferentes del conjunto de datos.
+
+ll <- matrix(NA,nrow=10,ncol=155)
+
+for(i in 1:10){
+  ss <- sample(1:dim(ozone)[1],replace=T)
+  ozone0 <- ozone[ss,]; ozone0 <- ozone0[order(ozone0$ozone),]
+  loess0 <- loess(temperature ~ ozone,data=ozone0,span=0.2)
+  ll[i,] <- predict(loess0,newdata=data.frame(ozone=1:155))
+}
+
+
+
+#Cada vez que voy a muestrear el reemplazo de ancho de todo el conjunto de datos. Luego, voy a crear un nuevo conjunto de datos, ozone0, que es el conjunto de datos de remuestreo para ese elemento particular del ciclo. Y ese es solo el subconjunto del conjunto de datos correspondiente a nuestra muestra aleatoria. Luego, voy a reordenar el conjunto de datos cada vez por la variable de ozono, y verá por qué en solo un minuto. Luego, ajusto una curva de loess cada vez, por lo que un loess es una especie de curva suave que se puede ajustar a través de los datos. Es muy similar a los ajustes sublimes del modelo que vimos en un ejemplo anterior con modelado con regresión lineal. Entonces, la idea básica es que estamos ajustando una curva suave que relacione la temperatura con las variables de ozono. Entonces, la temperatura es el resultado y el ozono es el predictor, y cada vez que uso el conjunto de datos de remuestreo como el conjunto de datos en el que estoy construyendo ese predictor. Y utilizo un intervalo común para cada vez, el intervalo es una medida de cuán suave será ese ajuste. Luego, predigo para cada curva de loess el resultado de un nuevo conjunto de datos para los mismos valores exactos. Siempre predigo valores de ozono de 1 a 155. Entonces, la i-ésima fila de este objeto ll es ahora la predicción de la curva de loess, de la i-ésima muestra de la fecha de ozono. Entonces, ¿qué he hecho aquí? He vuelto a muestrear mi conjunto de datos diez veces diferentes, encajé una curva suave a través de él esas diez veces diferentes, y luego lo que voy a hacer es promediar esos valores. Entonces, así es como se ve en esta trama. 
+
+plot(ozone$ozone,ozone$temperature,pch=19,cex=0.5)
+for(i in 1:10){lines(1:155,ll[i,],col="grey",lwd=2)}
+lines(1:155,apply(ll,2,mean),col="red",lwd=2)
+
+
+#Entonces, aquí he trazado el ozono en el eje x, estos son los valores de ozono observados frente a la temperatura en el eje y, esos son los valores de temperatura observados, y cada punto negro representa una observación. Cada línea gris aquí representa el ajuste con un conjunto de datos remuestreados. Para que puedas ver las líneas grises que tienen mucha curvatura. Capturan gran parte de la variabilidad en el conjunto de datos. Pero también pueden sobrecapturar parte de la variabilidad. Tienen un poco de curvas. Una vez que he promediado esas líneas, obtengo algo que es un poco más suave y está más cerca de la mitad del conjunto de datos. Esa es la línea roja. Entonces, la línea roja es la curva de loess embolsado. Es básicamente el promedio de múltiples curvas de loess ajustadas, el mismo conjunto de datos en el que lo he vuelto a muestrear cada vez. Hay una prueba que muestra que la estimación de ensacado siempre tendrá una variabilidad menor pero un sesgo similar a los ajustes de modelos individuales que usted haga. En el paquete de intercalación hay algunos modelos que ya realizan el ensacado por usted. Entonces, si está utilizando la función de tren, puede configurar el método para que sea bagEarth, treebag o bagFDA. Y esos son modelos específicos en bolsas que son el modelo que el paquete de intercalación se ajustará para usted. Alternativamente, puede crear su propia función de ensacado en caret.
+
+library(caret)
+library(tidyverse)
+
+predictors <- data.frame(ozone == ozone$ozone)
+
+temperature = ozone$temperature
+
+ctreebag <- bag(predictors, temperature, B = 10, bagControl = bagControl(fit = ctreeBag$fit, predict = ctreeBag$pred, aggregate = ctreeBag$aggregate))
+               
+               
+ #Este es un uso un poco avanzado, por lo que le recomiendo que lea la documentación detenidamente si va a intentar hacerlo usted mismo. Sin embargo, la idea aquí es que básicamente tomará su variable de predicción y la pondrá en un marco de datos. Así que haré que los predictores sean un marco de datos que contenga los datos del ozono. Entonces tienes tu variable de resultado. Aquí va a ser solo una variable de temperatura del conjunto de datos. Y paso esto a la función de bolsa en el paquete de intercalación. Entonces lo digo, quiero usar los predictores de ese marco de datos, este es mi resultado, este es el número de repeticiones con el número de submuestras que me gustaría tomar del conjunto de datos. Y luego bagControl me dice algo sobre cómo voy a ajustar el modelo. Por tanto, ajustar es la función que se aplicará para ajustar el modelo cada vez. Podría ser una llamada a la función train en el paquete de intercalación. Predecir es la forma en que, dado el ajuste de un modelo particular, seremos capaces de predecir nuevos valores. Entonces, esto podría ser, por ejemplo, una llamada a la función de predicción desde un modelo entrenado. Y luego agregados es la forma en que juntaremos la var, las predicciones. Entonces, por ejemplo, podría promediar las predicciones en todas las diferentes muestras replicadas. Puede ver que si observa esta versión de bolsa personalizada de los árboles de regresión condicional, puede ver que obtiene algunos de los beneficios que le mostraba en la diapositiva anterior con loess de bolsa. 
+
+
+plot(ozone$ozone,temperature,col='lightgrey',pch=19)
+points(ozone$ozone,predict(treebag$fits[[1]]$fit,predictors),pch=19,col="red")
+points(ozone$ozone,predict(treebag,predictors),pch=19,col="blue")
+
+#Entonces, la idea aquí es que estoy trazando el ozono nuevamente en el eje x versus la temperatura en el eje y. Los pequeños puntos grises representan valores reales observados. Los puntos rojos representan el ajuste de un único árbol de regresión condicional. Y entonces pueden ver que, por ejemplo, captura, no captura muy bien la tendencia que está sucediendo aquí, la línea roja es simplemente plana. Aunque parece haber una tendencia al alza en los puntos de datos aquí. Pero cuando promedio más de diez modelos diferentes en bolsas, el modelo encaja con estos árboles de regresión condicional. Veo que hay un aumento aquí en los valores en el ajuste azul, que es el ajuste de la regresión en bolsa. Así que veremos un poco esas diferentes partes de la función de ensacado. Entonces, en este caso particular, estoy usando la función ctreeBag, que puede ver, si ha cargado el paquete de intercalación en R. Entonces, para la parte de ajuste, toma el marco de datos que hemos pasado y la predicción , y el resultado que hemos pasado, y básicamente usa la función ctree para entrenar un árbol, un árbol de regresión condicional en el conjunto de datos. Este es el último comando que se llama comando ctree. Entonces devuelve este modelo ajustado de la función ctree. La predicción incluye el objeto. Entonces, este será un objeto del ajuste del modelo ctree. Y un nuevo conjunto de datos x, y obtendrá una nueva predicción. Entonces, lo que puede ver aquí es que básicamente calcula cada vez que la respuesta del árbol o el resultado del objeto y los nuevos datos. A continuación, calcula esta matriz de probabilidad y devuelve los niveles reales observados que predice o simplemente devuelve la respuesta, la respuesta predicha de la variable. Luego, la agregación toma esos valores y los promedia juntos o los junta de alguna manera. Entonces, aquí lo que está haciendo es básicamente obtener la predicción de cada uno de estos ajustes de modelo, por lo que se trata de una gran cantidad de observaciones. Y luego los une en una matriz de datos haciendo que cada fila sea igual a la predicción de una de las predicciones del modelo. Y luego toma la mediana en cada valor. Entonces, en otras palabras, toma la predicción mediana de cada uno de los diferentes ajustes de modelo en todas las muestras de arranque. Así que el ensacado es muy útil para modelos no lineales y se usa ampliamente. A menudo se usa con árboles. Y puede pensar en una extensión de esto como un bosque aleatorio, del que hablaremos en una conferencia futura. Varios modelos utilizan la función de tren principal de embolsado y de intercalación, como les comenté en la diapositiva anterior. Y también puede crear sus propias funciones de ensacado específicas, para cualquier algoritmo de clasificación o predicción que le gustaría ver. Para obtener más recursos, he vinculado a un par de tutoriales diferentes sobre embolsado y refuerzo, así como a los Elementos de aprendizaje estadístico, que tiene muchos más detalles sobre cómo funciona el embolsado. Pero recuerde que la idea básica es básicamente volver a muestrear sus datos, reajustar su modelo no lineal, luego promediar esos ajustes del modelo sobre los remuestreos para obtener un ajuste de modelo más suave, que el que obtendría de cualquier ajuste individual por sí solo.
