@@ -35,7 +35,7 @@ testing = mixtures[-inTrain,]
 
 #There is a non-random pattern in the plot of the outcome versus index.
 
-#There is a non-random pattern in the plot of the outcome versus index that does not appear to be perfectly explained by any predictor suggesting a variable may be missing.
+#There is a non-random pattern in the plot of the outcome versus index that does not appear to be perfectly explained by any predictor suggesting a variable may be missing. ###Respuesta
 
 #There is a non-random pattern in the plot of the outcome versus index that is perfectly explained by the Age variable.
 
@@ -52,20 +52,12 @@ inTrain = createDataPartition(mixtures$CompressiveStrength, p = 3/4)[[1]]
 training = mixtures[ inTrain,]
 testing = mixtures[-inTrain,]
 
-Make a histogram and confirm the SuperPlasticizer variable is skewed. Normally you might use the log transform to try to make the data more symmetric. Why would that be a poor choice for this variable?
+#Make a histogram and confirm the SuperPlasticizer variable is skewed. Normally you might use the log transform to try to make the data more symmetric. Why would that be a poor choice for this variable?
   
-  1 punto
-
-The log transform does not reduce the skewness of the non-zero values of SuperPlasticizer
-
-
-The SuperPlasticizer data include negative values so the log transform can not be performed.
-
-
-There are a large number of values that are the same and even if you took the log(SuperPlasticizer + 1) they would still all be identical so the distribution would not be symmetric.
-
-
-The log transform is not a monotone transformation of the data.
+#The log transform does not reduce the skewness of the non-zero values of SuperPlasticizer
+#The SuperPlasticizer data include negative values so the log transform can not be performed.
+#There are a large number of values that are the same and even if you took the log(SuperPlasticizer + 1) they would still all be identical so the distribution would not be symmetric. #Respuesta
+#The log transform is not a monotone transformation of the data.
 
 
 #Pregunta No.. 4
@@ -86,9 +78,14 @@ training <- adData[ inTrain,]
 testing <- adData[-inTrain,]
 
 
-Find all the predictor variables in the training set that begin with IL. Perform principal components on these variables with the preProcess() function from the caret package. Calculate the number of principal components needed to capture 80% of the variance. How many are there?
+#Find all the predictor variables in the training set that begin with IL. Perform principal components on these variables with the preProcess() function from the caret package. Calculate the number of principal components needed to capture 80% of the variance. How many are there?
+
+
+training_IL <- training[,grep("^IL", names(training))]
+proc_Train <- preProcess(training_IL, method = "pca", thresh = 0.9 )
+proc_Train
   
-#9
+#9   #Se necesitan 9 componentes
 #10
 #11
 #7
