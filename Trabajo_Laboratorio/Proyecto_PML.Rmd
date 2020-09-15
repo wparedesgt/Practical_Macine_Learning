@@ -188,13 +188,17 @@ ggplot(fit_rf, highlight = TRUE)
 
 ### 2. Neural Network (NNET)
 
-```{r}
+* fit_nnet <- train(classe~., data = training_wp_hc, method = "nnet")
+
+```{r include=FALSE}
 fit_nnet <- train(classe~., data = training_wp_hc, method = "nnet")
-predict_nnet <- predict(fit_nnet, testing_wp_hc)
-cm_nnet <- confusionMatrix(predict_nnet, testing_wp_hc$classe)$overall["Accuracy"]
 
 ```
 
+```{r}
+predict_nnet <- predict(fit_nnet, testing_wp_hc)
+cm_nnet <- confusionMatrix(predict_nnet, testing_wp_hc$classe)$overall["Accuracy"]
+```
 
 
 ### 3. Latent Dirichlet Allocation (LDA) 
@@ -301,6 +305,10 @@ table(Agreement_accuracy)
 ```{r}
 cm_rf_cv
 ```
+
+#Obtain OOB error in:
+
+cm_rf_cv_total$err.rate[,1]
 
 
 ```{r}

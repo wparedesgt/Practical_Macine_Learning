@@ -203,6 +203,13 @@ Agreement_accuracy <- confusionMatrix(testing_wp_hc$classe[coincidencia], predic
 
 table(Agreement_accuracy) 
 
+
+#Obtain OOB error in:
+
+
+cm_rf_cv_total$err.rate[,1]
+
+
 #Aplicando RF a la data valida 
 
 
