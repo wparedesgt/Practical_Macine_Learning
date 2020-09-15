@@ -185,7 +185,6 @@ plotTable <- table %>%
   group_by(Reference) %>%
   mutate(prop = Freq/sum(Freq))
 
-# fill alpha relative to sensitivity/specificity by proportional outcomes within reference groups (see dplyr code above as well as original confusion matrix for comparison)
 ggplot(data = plotTable, mapping = aes(x = Reference, y = Prediction, fill = tp_fp, alpha = prop)) +
   geom_tile() +
   geom_text(aes(label = Freq), vjust = .5, fontface  = "bold", alpha = 1) +
@@ -207,5 +206,5 @@ table(Agreement_accuracy)
 #Aplicando RF a la data valida 
 
 
-Results <- predict(fit_rf_cv, newdata=testing)
-Results
+predict_test <- predict(fit_rf_cv, newdata=testing)
+predict_test
