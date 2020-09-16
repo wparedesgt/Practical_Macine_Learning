@@ -213,12 +213,17 @@ cm_lda <- confusionMatrix(predict_lda, testing_wp_hc$classe)$overall["Accuracy"]
 
 ### 4. Gradient boosting (GBM)
 
-```{r}
+* fit_gbm <- train(classe~.,data = training_wp_hc, method = "gbm")
+
+```{r include=FALSE}
 fit_gbm <- train(classe~.,data = training_wp_hc, method = "gbm")
+
+```
+
+```{r}
 predict_gbm <- predict(fit_gbm, testing_wp_hc)
 cm_gmb <- confusionMatrix(predict_gbm, testing_wp_hc$classe)$overall["Accuracy"] 
 ```
-
 
 
 
@@ -298,17 +303,24 @@ table(Agreement_accuracy)
 
 ```
 
-## Applying the best model to the validation data
 
+
+#Obtain OOB error in:
+
+The expected out of sample error is:
+
+```{r}
+summary(fit_rf_cv$finalModel$err.rate[,1])[4]
+```
+
+
+
+## Applying the best model to the validation data
 
 
 ```{r}
 cm_rf_cv
 ```
-
-#Obtain OOB error in:
-
-cm_rf_cv_total$err.rate[,1]
 
 
 ```{r}

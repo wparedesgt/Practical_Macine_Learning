@@ -207,7 +207,7 @@ table(Agreement_accuracy)
 #Obtain OOB error in:
 
 
-cm_rf_cv_total$err.rate[,1]
+summary(fit_rf_cv$finalModel$err.rate[,1])[4]
 
 
 #Aplicando RF a la data valida 
